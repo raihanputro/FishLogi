@@ -6,4 +6,10 @@ const db = new Sequelize('FishLogi', 'root', '', {
 
 });
 
+db.authenticate().then(() => {
+    console.log('Terkoneksi dengan database!');
+ }).catch((error) => {
+    console.error('Tidak dapat konek dengan database:', error);
+ });
+
 export default db;
