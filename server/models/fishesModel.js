@@ -3,7 +3,7 @@ import db from "../config/database.js";
 
 const { DataTypes } = Sequelize;
 
-const fishModel = db.define('fishes', {
+const fishesModel = db.define('fishes', {
     name: DataTypes.STRING,
     latinName: DataTypes.STRING,
     class: DataTypes.STRING,
@@ -12,12 +12,13 @@ const fishModel = db.define('fishes', {
     desc: DataTypes.STRING,
     habitats: DataTypes.STRING,
     endemicArea: DataTypes.STRING,
-    fishPicture: DataTypes.TEXT
+    fishPicture: DataTypes.TEXT,
+    authorName: DataTypes.STRING,
 }, {
     freezeTableName: true,
 })
  
-export default fishModel;
+export default fishesModel;
 
 (async() => {
     await db.sync();
