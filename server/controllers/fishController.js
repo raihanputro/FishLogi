@@ -1,8 +1,8 @@
-import fishModel from "../models/fishModel.js";
+import fishesModel from "../models/fishesModel.js";
 
 export const getFishes = async(req, res) => {
     try {
-        const fishes = await fishModel.findAll();
+        const fishes = await fishesModel.findAll();
 
         res.status(200).json( fishes );
     } catch (error) {
@@ -12,7 +12,7 @@ export const getFishes = async(req, res) => {
 
 export const getFish = async(req, res) => {
     try {
-        const fish = await fishModel.findOne({
+        const fish = await fishesModel.findOne({
             where: {
                 id: req.params.id
             }
@@ -26,7 +26,7 @@ export const getFish = async(req, res) => {
 
 export const createFishPost =  async(req, res) => {
     try {
-        const newFishPost = await fishModel.create(req.body);
+        await fishesModel.create(req.body);
 
         res.status(201).json(newFishPost);
     } catch (error) {
@@ -36,15 +36,13 @@ export const createFishPost =  async(req, res) => {
 
 export const updateFishPost =  async(req, res) => {
     try {
-        const id = req.params.id;
-
-       await fishModel.update(req.body, {
+       const updatedFishPost = await fishesModel.update(req.body, {
             where: {
                 id: req.params.id
             }
         });
 
-        res.status(200).json({ message: `Postingan ikan dengan id ${id}, telah berhasil di update!`});
+        res.json(updatedFishPost);
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
@@ -52,15 +50,13 @@ export const updateFishPost =  async(req, res) => {
 
 export const deleteFishPost = async(req, res) => {
     try {
-        const id = req.params.id;
-
-        const deleteFishPost = await fishModel.destroy({
+        const deleteFishPost = await fishesModel.destroy({
             where: {
                 id: req.params.id
             }
         })
 
-        res.status(200).json({ message: `Postingan ikan dengan id ${id} berhasil di hapus!`})
+        res.json(deleteFishPost)
     } catch (error) {
         res.status(400).json({ message: error.message})
     }
