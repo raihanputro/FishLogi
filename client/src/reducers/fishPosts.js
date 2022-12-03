@@ -1,6 +1,10 @@
-const fishPostReducer = ( fishPosts = [], action ) => {
+const fishPostReducer = (fishPosts = [], action ) => {
     switch ( action.type ) {
         case 'FETCH_ALL':
+            return action.payload;
+        case 'FETCH_BY_ID':
+            return {fishPost: action.payload.fishPost};
+        case 'FETCH_BY_SEARCH':
             return action.payload;
         case 'CREATE':
             return [ ...fishPosts, action.payload ];
