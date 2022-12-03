@@ -6,13 +6,14 @@ const { DataTypes } = Sequelize;
 const fishesModel = db.define('fishes', {
     name: DataTypes.STRING,
     latinName: DataTypes.STRING,
-    class: DataTypes.STRING,
+    classes: DataTypes.STRING,
     species: DataTypes.STRING,
     type: DataTypes.STRING,
     desc: DataTypes.STRING,
     habitats: DataTypes.STRING,
     endemicArea: DataTypes.STRING,
-    fishPicture: DataTypes.TEXT,
+    fishPicture: DataTypes.STRING,
+    authorId: DataTypes.INTEGER,
     authorName: DataTypes.STRING,
 }, {
     freezeTableName: true,

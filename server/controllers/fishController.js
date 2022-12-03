@@ -1,14 +1,5 @@
 import fishesModel from "../models/fishesModel.js";
-
-export const getFishes = async(req, res) => {
-    try {
-        const fishes = await fishesModel.findAll();
-
-        res.status(200).json( fishes );
-    } catch (error) {
-        res.status(404).json({ message: error.message });
-    }
-}
+import { Op } from "sequelize";
 
 export const getFish = async(req, res) => {
     try {
@@ -24,9 +15,40 @@ export const getFish = async(req, res) => {
     }
 }
 
-export const createFishPost =  async(req, res) => {
+export const getFishes = async(req, res) => {
     try {
-        await fishesModel.create(req.body);
+        const fishes = await fishesModel.findAll();
+
+        res.status(200).json(fishes);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
+export const getFishesBySearch = async(req, res) => {
+    const { searchQuery } = req.query;
+    
+    try {
+        const fishPosts = await fishesModel.findAll({
+            where: {
+                name: {
+                    [Op.like]: `%${searchQuery}%`
+                }
+            }
+        });
+
+        res.json( { data: fishPosts } );
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
+export const createFishPost =  async(req, res) => {
+    const fish = req.body;
+    try {
+        const newFishPost = await fishesModel.create({...fish, authorId: req.userId});
+
+        await newFishPost.save();
 
         res.status(201).json(newFishPost);
     } catch (error) {
@@ -39,7 +61,7 @@ export const updateFishPost =  async(req, res) => {
        const updatedFishPost = await fishesModel.update(req.body, {
             where: {
                 id: req.params.id
-            }
+            },
         });
 
         res.json(updatedFishPost);
