@@ -7,7 +7,9 @@ export default makeStyles((theme) => ({
         }
     },
     container: {
-        marginTop: '120px'
+        marginTop: '130px'
+    },
+    search: {
+        marginBottom: '20px'
     }
-
 }))
