@@ -4,6 +4,12 @@ import db from "../config/database.js";
 const { DataTypes } = Sequelize;
 
 const usersModel = db.define('users', {
+    id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true
+    },
     name: {
         type: DataTypes.STRING,
         allowNull: false
@@ -15,6 +21,11 @@ const usersModel = db.define('users', {
     password: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    isAdmin: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "visitors"
     },
     profilePic: {
         type: DataTypes.TEXT,
