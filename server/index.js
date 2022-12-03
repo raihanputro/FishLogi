@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 
 import fishRoutes from './routes/fishRoutes.js';
-import usersRoutes from './routes/fishRoutes.js'
+import userRoutes from './routes/usersRoutes.js';
 
 dotenv.config();
 
@@ -14,10 +14,10 @@ App.use(cors());
 App.use(express.json());
 
 App.use('/fishes', fishRoutes);
-App.use('/users', usersRoutes);
+App.use('/users', userRoutes);
 
-App.use(bodyParser.json({ limit: "30mb", extended: true }));
-App.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+App.use(bodyParser.json({ limit: "100mb", extended: true }));
+App.use(bodyParser.urlencoded({ limit: "100mb", extended: true }));
 
 const PORT = process.env.PORT;
 
