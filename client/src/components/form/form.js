@@ -9,12 +9,12 @@ import { createFishPost, updateFishPost } from '../../actions/fishPosts';
 const Form = ({ currentId, setCurrentId }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    
-    const [ fishData, setFishData ] = useState({
-        authorName: '', 
+    const navigate  = useNavigate();
+    const user = JSON.parse(localStorage.getItem('profile'));
+    const [ fishData, setFishData ] = useState({ 
         name: '',
         latinName: '',
-        class: '',
+        classes: '',
         species: '',
         type: '',
         desc: '',
@@ -22,59 +22,59 @@ const Form = ({ currentId, setCurrentId }) => {
         endemicArea: '',
         fishPicture: '',
     });
-
+    
     const fishPost =  useSelector((state) => (currentId ? state.fishPosts.find((fp) => fp.id === currentId) : null))
+    
+    useEffect(() => {
+        if(fishPost) setFishData(fishPost);
+    }, [fishPost]);
 
-    const fishType = [{ value: 'Air Tawar', label: 'Air Tawar'}, { value: 'Air Asin', label: 'Air Asin'}];
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if (currentId === null) {
+            dispatch(createFishPost({...fishData, authorName: user?.result?.name}));
+            clear();
+        } else {
+            dispatch(updateFishPost(currentId, {...fishData, authorName: user?.result?.name}));
+            clear();
+        }
+    }
+
+    if(!user?.result?.name) {
+        return (
+            <Paper className={classes.paper}>
+                <Typography>Silahkan Masuk untuk memasukkan data ikan!</Typography>
+            </Paper>
+        )
+    }
 
     const clear = () => {
         setCurrentId(null);
-        setFishData({
-            authorName: '', 
+        setFishData({ 
             name: '',
             latinName: '',
-            class: '',
+            classes: '',
             species: '',
             type: '',
             desc: '',
             habitats: '',
             endemicArea: '',
             fishPicture: '',
-        })
-    }
-
-    useEffect(() => {
-        if(fishPost) setFishData(fishPost);
-    }, [fishPost])
-
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (currentId) {
-            dispatch(updateFishPost(currentId, fishData));
-            clear();
-        } else {
-            dispatch(createFishPost(fishData));
-            clear();
-        }
-       
-    }
+        });
+    };
+    
+    const fishType = [
+        { value: 'Air Tawar', label: 'Air Tawar'}, 
+        { value: 'Air Asin', label: 'Air Asin'}
+    ];
 
     return (
         <Paper className={classes.paper} elevation={6}>
             <form className={`${classes.root} ${classes.form}`} autoComplete='off' noValidate onSubmit={handleSubmit}>
-                <Typography variant='h6'>{currentId ? `Edit ${fishPost.name}` : `Buat Postingan Ikan`}</Typography>
+                <Typography variant='h6'>{currentId ? `Edit ${fishPost.name}` : `Buat Postingan Ikan`}</Typography>  
                 <TextField 
-                    name='Penulis' 
-                    label='Penulis' 
-                    variant='outlined' 
-                    fullWidth 
-                    value={fishData.authorName}
-                    onChange={(e) => setFishData({ ...fishData, authorName: e.target.value })}
-                    helperText="Silahkan isi Nama Penulis"
-                />   
-                <TextField 
-                    name='Nama Ikan' 
+                    name= "name" 
                     label='Nama Ikan' 
                     variant='outlined' 
                     fullWidth 
@@ -83,7 +83,7 @@ const Form = ({ currentId, setCurrentId }) => {
                     helperText="Silahkan isi Nama Ikan"
                 />   
                 <TextField 
-                    name='Nama Latin Ikan' 
+                    name='latinName' 
                     label='Nama Latin Ikan' 
                     variant='outlined' 
                     fullWidth 
@@ -92,16 +92,16 @@ const Form = ({ currentId, setCurrentId }) => {
                     helperText="Silahkan isi Nama Latin Ikan"
                 />   
                 <TextField 
-                    name='Kelas' 
+                    name='classes' 
                     label='Kelas' 
                     variant='outlined' 
                     fullWidth 
-                    value={fishData.class}
-                    onChange={(e) => setFishData({ ...fishData, class: e.target.value })}
+                    value={fishData.classes}
+                    onChange={(e) => setFishData({ ...fishData, classes: e.target.value })}
                     helperText="Silahkan isi Kelas Ikan"
                 />   
                 <TextField 
-                    name='Spesies' 
+                    name='species' 
                     label='Spesies' 
                     variant='outlined' 
                     fullWidth 
@@ -110,18 +110,17 @@ const Form = ({ currentId, setCurrentId }) => {
                     helperText="Silahkan isi Spesies Ikan"
                 />   
                 <TextField 
-                    name='Tipe' 
+                    select
+                    name='type' 
                     label='Tipe' 
                     variant='outlined' 
                     fullWidth 
                     value={fishData.type}
                     onChange={(e) => setFishData({ ...fishData, type: e.target.value })}
                     helperText="Silahkan isi Tipe Ikan"
-                >
-                    {fishType.map((pilihan) => (<MenuItem key={pilihan.value} value={pilihan.value}>{pilihan.label}</MenuItem>))}
-                </TextField>   
+                >{fishType.map((option) => (<MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>))}</TextField>   
                 <TextField 
-                    name='Deskripsi Ikan' 
+                    name='desc' 
                     label='Deskripsi Ikan' 
                     variant='outlined' 
                     fullWidth 
@@ -130,7 +129,7 @@ const Form = ({ currentId, setCurrentId }) => {
                     helperText="Silahkan isi Deskripsi Ikan"
                 />   
                 <TextField 
-                    name='Habitat' 
+                    name='habitats' 
                     label='Habitat' 
                     variant='outlined' 
                     fullWidth 
@@ -138,8 +137,8 @@ const Form = ({ currentId, setCurrentId }) => {
                     onChange={(e) => setFishData({ ...fishData, habitats: e.target.value })}
                     helperText="Silahkan isi Habitat Ikan"
                 />   
-                <TextField 
-                    name='Daerah Endemik' 
+                <TextField
+                    name='endemicArea' 
                     label='Daerah Endemik' 
                     variant='outlined' 
                     fullWidth 
@@ -151,12 +150,9 @@ const Form = ({ currentId, setCurrentId }) => {
                     type="file"
                     multiple={false}
                     onDone = {({ base64 }) => setFishData({ ...fishData, fishPicture: base64})}
-                    name='Foto Ikan' 
-                    label='Foto Ikan' 
-                    variant='outlined' 
-                    fullWidth 
                 />
                 <Button className={classes.buttonSubmit} variant='contained' size='large' type='submit' fullWidth>Kirim</Button>  
+                <Button className={classes.buttonSubmit} variant='contained' size='large' type='submit' fullWidth onClick={clear}>Batal</Button>  
             </form>
         </Paper>
     )
