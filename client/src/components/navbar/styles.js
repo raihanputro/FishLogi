@@ -7,18 +7,18 @@ export default makeStyles((theme) => ({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '10px 50px',
         position: 'fixed'
     },
-    heading: {
-        color: theme.palette.primary.main,
-        textDecoration: 'none',
-        fontSize: '2em',
-        fontWeight: '300px',
+    image: {
+        paddingTop: '15px',
+        paddingLeft: '70px',
+        imageRendering: '-webkit-optimize-contrast',
+        imageRendering: 'crisp-edges'
     },
     toolbar: {
         display: 'flex',
         justifyContent: 'flex-end',
+        padding: '10px 70px',
         width: '400px',
         [theme.breakpoints.down('sm')]: {
             width: 'auto',
@@ -27,7 +27,7 @@ export default makeStyles((theme) => ({
     profile: {
         display: 'flex',
         justifyContent: 'space-between',
-        width: '400px',
+        width: '500px',
         alignItems: 'center',
         [theme.breakpoints.down('sm')]: {
             width: 'auto',
