@@ -1,12 +1,31 @@
+import { Navigate } from 'react-router-dom';
 import * as api from '../api';
+
+export const getFishPost = (id) => async ( dispatch ) => {
+    try {
+        const { data } = await api.fetchFishPost(id);
+
+        dispatch({ type: 'FETCH_BY_ID', payload: {fishPost: data}})
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 export const getFishPosts = () => async ( dispatch ) => {
     try {
-        const { data } = await api.fecthFishPost();
-
+        const { data } = await api.fetchFishPosts();
         dispatch({ type: 'FETCH_ALL', payload: data });
     } catch (error) {
         console.log(error)
+    }
+}
+
+export const getFishPostsBySearch = (seachQuery) => async ( dispatch ) => {
+    try {
+        const { data: { data } } = await api.fetchFishPostsBySearch(seachQuery);
+        dispatch({ type: 'FETCH_BY_SEARCH', payload: data});
+    } catch (error) {
+        console.log(error);
     }
 }
 
