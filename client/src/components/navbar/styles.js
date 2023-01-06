@@ -10,10 +10,13 @@ export default makeStyles((theme) => ({
         position: 'fixed'
     },
     image: {
-        paddingTop: '15px',
-        paddingLeft: '70px',
         imageRendering: '-webkit-optimize-contrast',
-        imageRendering: 'crisp-edges'
+        paddingLeft: '50px',
+        paddingTop: '15px',
+        [theme.breakpoints.down('sm')]: {
+            width: '80%',
+            paddingTop: '10px',
+        },
     },
     toolbar: {
         display: 'flex',
@@ -21,7 +24,7 @@ export default makeStyles((theme) => ({
         padding: '10px 70px',
         width: '400px',
         [theme.breakpoints.down('sm')]: {
-            width: 'auto',
+            width: '200px',
         },
     },
     profile: {
@@ -37,6 +40,8 @@ export default makeStyles((theme) => ({
     },
     logout: {
         marginLeft: '20px',
+        backgroundColor: 'red',
+        color: 'white'
     },
     userName: {
         display: 'flex',
@@ -45,6 +50,8 @@ export default makeStyles((theme) => ({
     },
     brandContainer: {
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-around'
     }
 }))
