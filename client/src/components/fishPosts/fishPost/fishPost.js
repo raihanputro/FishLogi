@@ -20,24 +20,12 @@ const FishPost = ({ fishPost, setCurrentId }) => {
     return (
             <Card className={classes.card}>
                 <ButtonBase className={classes.cardAction} onClick={openFishPost} component="span">
-                    <CardMedia className={classes.media} image={fishPost.fishPicture || "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"} title={fishPost.name} />  
-                    <Typography style={{ marginTop: '10px'}}className={classes.title} variant="h5">{fishPost.name}</Typography>
+                    <CardMedia className={classes.media} image={fishPost?.fishPicture || "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"} title={fishPost?.name} />  
+                    <Typography style={{ marginTop: '5px'}} className={classes.title} variant="h5">{fishPost?.name}</Typography>
                     <CardContent>
-                        <Typography style={{textAlign: 'justify'}} variant="body2" color="textSecondary" gutterBottom>{fishPost.desc.split(' ').splice(0, 20).join(' ')}...</Typography>
+                        <Typography style={{textAlign: 'justify'}} variant="body2" color="textSecondary" gutterBottom>{fishPost?.desc?.split(' ').splice(0, 20).join(' ')}...</Typography>
                     </CardContent>
                 </ButtonBase>
-                {(user?.result?.isAdmin === 'admin') && (
-                    <CardActions className={classes.cardActions}>
-                            <>
-                                <Button size="small" style={{color: 'red'}} onClick={() => dispatch(deleteFishPost(fishPost.id))}>
-                                    <DeleteIcon style={{padding: '0px'}} fontSize="small"/>
-                                </Button>
-                                    <Button color="primary" size="small" onClick={(e) => {e.stopPropagation(); setCurrentId(fishPost.id)}}>
-                                    <SettingsIcon fontSize="medium" />
-                                </Button>
-                            </>
-                    </CardActions>
-                )}
             </Card>
     )
 };
