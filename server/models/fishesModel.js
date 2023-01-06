@@ -12,9 +12,14 @@ const fishesModel = db.define('fishes', {
     desc: DataTypes.STRING,
     habitats: DataTypes.STRING,
     endemicArea: DataTypes.STRING,
-    fishPicture: DataTypes.STRING,
+    fishPicture: DataTypes.TEXT,
     authorId: DataTypes.INTEGER,
     authorName: DataTypes.STRING,
+    deletedAt: {
+        type: DataTypes.DATE,
+    },
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE,
 }, {
     freezeTableName: true,
 })

@@ -31,6 +31,12 @@ const usersModel = db.define('users', {
         type: DataTypes.TEXT,
         allowNull: false,
         defaultValue: "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
+    },
+    loginAt: {
+        type: DataTypes.DATE,
+    },
+    logoutAt: {
+        type: DataTypes.DATE,
     }
 }, {
     freezeTableName: true,
