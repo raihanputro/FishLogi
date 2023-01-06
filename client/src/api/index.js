@@ -11,11 +11,13 @@ API.interceptors.request.use((req) => {
 });
 
 export const fetchFishPostsBySearch = (searchQuery) => API.get(`/fishes/search?searchQuery=${searchQuery.search}`);
+export const fetchFishPosts = () => API.get(`/fishes`);
 export const fetchFishPost = (id) => API.get(`/fishes/${id}`);
-export const fetchFishPosts = () => API.get('/fishes');
 export const createFishPost = (newFishPost) => API.post('/fishes', newFishPost);
 export const updateFishPost = (id, updatedFishPost) => API.patch(`/fishes/${id}`, updatedFishPost);
 export const deleteFishPost = (id) => API.delete(`/fishes/${id}`);
 
+export const fetchUsers = () => API.get('/users');
+export const logoutUser = (id) => API.patch(`/users/${id}`);
 export const signIn = (formData) => API.post('/users/signIn', formData);
 export const signUp = (formData) => API.post('/users/signUp', formData);
