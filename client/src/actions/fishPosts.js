@@ -11,11 +11,11 @@ export const getFishPost = (id) => async ( dispatch ) => {
     }
 }
 
-export const getFishPosts = (setFishData) => async ( dispatch ) => {
+export const getFishPosts = () => async ( dispatch ) => {
     try {
         const { data } = await api.fetchFishPosts();
-        setFishData(data);
-        dispatch({ type: 'FETCH_ALL', payload: data });
+
+        dispatch({type: 'FETCH_ALL', payload: data})
     } catch (error) {
         console.log(error)
     }
