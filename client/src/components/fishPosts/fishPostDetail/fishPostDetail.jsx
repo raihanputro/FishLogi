@@ -33,7 +33,7 @@ const FishPostDetail = () => {
     if(!fishPost) return 'tidak ada detail ikan';
 
     return (
-        <Paper style={{ padding: '20px', borderRadius: '15px', marginTop: '130px' }} elevation={6} >
+        <Paper style={{ padding: '20px', borderRadius: '15px', marginTop: '130px', height: '100%' }} elevation={6} >
             <div className={classes.card}>
                 <div className={classes.section}>
                 <Typography variant="h3" component="h2" >{fishPost.name}</Typography>
@@ -51,9 +51,9 @@ const FishPostDetail = () => {
                     <Link to={`/authors/${fishPost.authorName}`} style={{ textDecoration: 'none', color: '#3f51b5' }}>
                     {` ${fishPost.authorName}`}
                     </Link>
-                </Typography>
+                </Typography> 
                 <Typography variant="body1">Di posting: {moment(fishPost.createdAt).fromNow()}</Typography>
-                <Typography variant="body1">Di perbarui: {moment(fishPost.updateAt).fromNow()}</Typography>
+                <Typography variant="body1">Di perbarui: {moment(fishPost.updatedAt).fromNow()}</Typography>
                 </div>
                 <div className={classes.imageSection}>
                     <img className={classes.media} src={fishPost.fishPicture} alt={fishPost.name} />
