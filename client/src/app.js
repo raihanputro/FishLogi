@@ -2,11 +2,13 @@ import React from "react";
 import { Container } from '@material-ui/core';
 import { useDispatch } from "react-redux";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import useStyles from './styles';
 import Navbar from "./components/navbar/navbar";
 import Home from "./components/home/home";
 import Auth from "./components/auth/auth";
 import FishPostDetail from "./components/fishPosts/fishPostDetail/fishPostDetail";
+import Footer from "./components/footer/footer";
+import "./styles.js";
+import "./index.css";
 
 const App = () => {
 
@@ -24,6 +26,7 @@ const App = () => {
                     <Route path="/auth" element={!user ? <Auth /> : <Navigate to="/fishes" />}/>
                 </Routes>
             </Container>
+            <Footer />
         </BrowserRouter>
     );
 };
