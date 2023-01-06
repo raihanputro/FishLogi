@@ -8,10 +8,14 @@ export default makeStyles((theme) => ({
     },
     paper: {
       padding: theme.spacing(2),
-      borderRadius: '15px',
+      margin: '80px 80px',
+      justifyContent: 'center',
+      height: '80%',
+      overflow: 'auto'
     },
     form: {
       display: 'flex',
+      flexDirection: 'row',
       flexWrap: 'wrap',
       justifyContent: 'center',
     },
@@ -20,7 +24,9 @@ export default makeStyles((theme) => ({
       margin: '10px 0',
     },
     buttonSubmit: {
-      marginTop: 10,
-      marginBottom: 10,
+      marginTop: 20,
     },
+    buttonClear: {
+      marginTop: 5,
+    }
 }));
